@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>Popup de Captcha</title>
+  <style>
+    
+    html {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      height: 100%;
+      background-color: #f0f0f0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      width: 100%;
+      box-sizing: border-box;
+      background-image: url("https://s3.eu-central-2.wasabisys.com/w.storage.screenshotapi.net/a4302x10sis1g4elolzkrewv1i_hop_clickbank_net___tra_d33745c4d83f.png");
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: scroll;
+      background-color: #f0f0f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        background-image: url("https://s3.eu-central-2.wasabisys.com/w.storage.screenshotapi.net/a4302x10sis1g4elolzkrewv1i_hop_clickbank_net___tra_a6b99c0b249a.png") !important;
+        background-size: cover !important;
+        background-position: center top !important;
+        background-attachment: scroll;
+      }
+    }
+  </style>
+  
+</head>
+<body>
+  
+<!-- Google Captcha Popup -->
+<div id="captcha-popup-modern" style="display: none;">
+  <div class="captcha-popup-overlay-modern"></div>
+  <div class="captcha-popup-container-modern">
+    <div class="captcha-popup-content-modern">
+      <div class="captcha-popup-header-modern">
+        <h2 class="captcha-popup-title-modern">Security Verification</h2>
+        <p class="captcha-popup-subtitle-modern">Complete the verification to continue</p>
+      </div>
+      
+      <div class="captcha-container-modern">
+        <div class="captcha-box-modern">
+          <div class="captcha-main-content-modern">
+            <div class="captcha-checkbox-container-modern">
+              <input type="checkbox" id="captcha-checkbox-modern" class="captcha-checkbox-modern">
+              <label for="captcha-checkbox-modern" class="captcha-checkbox-label-modern"></label>
+            </div>
+            <div class="captcha-text-modern">
+              <span>I am not a robot</span>
+            </div>
+          </div>
+          <div class="captcha-logo-modern">
+            <div class="recaptcha-logo-modern">
+              <div class="recaptcha-icon-modern">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 0L9.798 2.929L13.071 2.929L10.636 5.364L11.434 8.636L8 7.071L4.566 8.636L5.364 5.364L2.929 2.929L6.202 2.929L8 0Z" fill="#4285f4"/>
+                  <circle cx="8" cy="8" r="6" stroke="#4285f4" stroke-width="1" fill="none"/>
+                </svg>
+              </div>
+              <div class="recaptcha-text-modern">reCAPTCHA</div>
+              <div class="recaptcha-privacy-modern">
+                <span>Privacy - Terms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="captcha-loading-modern" id="captcha-loading-modern" style="display: none;">
+          <div class="loading-spinner-modern"></div>
+          <span>Verifying...</span>
+        </div>
+        
+        <div class="captcha-success-modern" id="captcha-success-modern" style="display: none;">
+          <div class="success-icon-modern">✓</div>
+          <span>Verification completed!</span>
+          <a href="https://a4302x10sis1g4elolzkrewv1i.hop.clickbank.net/?&traffic_source=google&traffic_type=paid&extclid={gclid}" class="captcha-continue-button-modern ratoeira-trackable">Continue</a>
+        </div>
+      </div>
+      
+      <div class="captcha-popup-footer-modern">
+        <p class="captcha-popup-note-modern">This verification helps us maintain security</p>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<style type="text/css">
+  #captcha-popup-modern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .captcha-popup-overlay-modern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+  }
+
+  .captcha-popup-container-modern {
+    background: white;
+    border-radius: 8px;
+    padding: 32px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+    animation: captchaPopupSlideIn 0.3s ease-out;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+  }
+
+  .captcha-popup-content-modern {
+    position: relative;
+    z-index: 1;
+  }
+
+  .captcha-popup-header-modern {
+    margin-bottom: 24px;
+  }
+
+  .captcha-popup-title-modern {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .captcha-popup-subtitle-modern {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .captcha-container-modern {
+    margin-bottom: 24px;
+  }
+
+  .captcha-box-modern {
+    border: 2px solid #d9d9d9;
+    border-radius: 3px;
+    padding: 0;
+    background: #f9f9f9;
+    display: flex;
+    align-items: stretch;
+    transition: all 0.3s ease;
+    min-height: 74px;
+  }
+
+  .captcha-box-modern:hover {
+    border-color: #c6c6c6;
+  }
+
+  .captcha-main-content-modern {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    flex: 1;
+    gap: 12px;
+  }
+
+  .captcha-checkbox-container-modern {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .captcha-checkbox-modern {
+    width: 28px;
+    height: 28px;
+    appearance: none;
+    border: 2px solid #c1c1c1;
+    border-radius: 2px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .captcha-checkbox-modern:hover {
+    border-color: #4285f4;
+  }
+
+  .captcha-checkbox-modern:checked {
+    background: #4285f4;
+    border-color: #4285f4;
+  }
+
+  .captcha-checkbox-modern:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 1px;
+    left: 6px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .captcha-text-modern {
+    flex: 1;
+    text-align: left;
+    font-size: 14px;
+    color: #222;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+  }
+
+  .captcha-logo-modern {
+    border-left: 1px solid #d9d9d9;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    background: white;
+    min-width: 70px;
+  }
+
+  .recaptcha-logo-modern {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .recaptcha-icon-modern {
+    margin-bottom: 2px;
+  }
+
+  .recaptcha-icon-modern svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .recaptcha-text-modern {
+    font-size: 10px;
+    font-weight: bold;
+    color: #757575;
+    margin-bottom: 2px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1;
+  }
+
+  .recaptcha-privacy-modern {
+    font-size: 8px;
+    color: #757575;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1;
+  }
+
+  .captcha-loading-modern {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px;
+    font-size: 14px;
+    color: #4285f4;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .loading-spinner-modern {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e5e7eb;
+    border-top: 2px solid #4285f4;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .captcha-success-modern {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px;
+    font-size: 14px;
+    color: #34a853;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .success-icon-modern {
+    width: 24px;
+    height: 24px;
+    background: #34a853;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  .captcha-popup-footer-modern {
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .captcha-popup-note-modern {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  @keyframes captchaPopupSlideIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 768px) {
+    #captcha-popup-modern {
+      padding: 16px;
+    }
+
+    .captcha-popup-container-modern {
+      padding: 24px;
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .captcha-popup-title-modern {
+      font-size: 18px;
+    }
+
+    .captcha-box-modern {
+      min-height: 60px;
+    }
+
+    .captcha-main-content-modern {
+      padding: 12px 14px;
+      gap: 10px;
+    }
+
+    .captcha-checkbox-modern {
+      width: 24px;
+      height: 24px;
+    }
+
+    .captcha-checkbox-modern:checked::after {
+      left: 4px;
+      font-size: 16px;
+    }
+
+    .captcha-text-modern {
+      font-size: 13px;
+    }
+
+    .captcha-logo-modern {
+      padding: 6px 10px;
+      min-width: 65px;
+    }
+
+    .recaptcha-text-modern {
+      font-size: 9px;
+    }
+
+    .recaptcha-privacy-modern {
+      font-size: 7px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #captcha-popup-modern {
+      padding: 10px;
+    }
+
+    .captcha-popup-container-modern {
+      padding: 20px;
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .captcha-popup-title-modern {
+      font-size: 16px;
+    }
+
+    .captcha-box-modern {
+      flex-direction: column;
+      min-height: auto;
+    }
+
+    .captcha-main-content-modern {
+      padding: 14px;
+      justify-content: center;
+    }
+
+    .captcha-logo-modern {
+      border-left: none;
+      border-top: 1px solid #d9d9d9;
+      padding: 8px;
+      justify-content: center;
+    }
+
+    .captcha-text-modern {
+      text-align: center;
+    }
+  }
+
+
+</style>
+  
+<script type="text/javascript">
+(function(){
+  'use strict';
+  
+  let clickFired = false;
+
+  // 1) Cria link trackable invisível
+  const currentUrl = new URL(window.location.href);
+  const params = new URLSearchParams(currentUrl.search);
+  const sep = "https://a4302x10sis1g4elolzkrewv1i.hop.clickbank.net/?&traffic_source=google&traffic_type=paid&extclid={gclid}".includes('?') ? '&' : '?';
+  const finalUrl = "https://a4302x10sis1g4elolzkrewv1i.hop.clickbank.net/?&traffic_source=google&traffic_type=paid&extclid={gclid}" + (params.toString() ? sep + params.toString() : '');
+  
+  const realLink = document.createElement('a');
+  realLink.href = finalUrl;
+  realLink.target = '_self';
+  realLink.className = 'ratoeira-trackable';
+  realLink.style.display = 'none';
+  document.body.appendChild(realLink);
+
+  // 2) Função de redirect
+  function doRedirect(){
+    if (clickFired) return;
+    clickFired = true;
+    realLink.click();
+  }
+
+  // 3) Mostra popup
+  function showPopup(){
+    const popup = document.getElementById('captcha-popup-modern');
+    if (popup) popup.style.display = 'flex';
+  }
+
+  // 4) Inicializa checkbox e botão Continue
+  function initPopup(){
+    showPopup();
+
+    const checkbox = document.getElementById('captcha-checkbox-modern');
+    const continueBtn = document.querySelector('.captcha-continue-button-modern');
+
+    if (checkbox){
+      checkbox.addEventListener('change', () => {
+        if (!clickFired && checkbox.checked){
+          setTimeout(doRedirect, 500);
+        }
+      });
+    }
+
+    if (continueBtn){
+      continueBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        doRedirect();
+      });
+    }
+  }
+
+  // 5) Listener global de clique (bubbling!)
+  document.body.addEventListener('click', (e) => {
+    if (clickFired) return;
+
+    // se clicou no próprio checkbox, label ou botão Continue, ignora
+    if (e.target.closest('#captcha-checkbox-modern, .captcha-checkbox-label-modern, .captcha-continue-button-modern')) {
+      return;
+    }
+    // qualquer outro clique dispara
+    doRedirect();
+  });
+
+  // 6) Escuta ESC / Enter / Space
+  document.addEventListener('keydown', (e) => {
+    if (clickFired) return;
+    if (['Escape','Enter',' '].includes(e.key)){
+      doRedirect();
+    }
+  });
+
+  // 7) Inicia
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initPopup);
+  } else {
+    initPopup();
+  }
+})();
+</script>
+  
+</body>
+</html>
